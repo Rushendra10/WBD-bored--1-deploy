@@ -3,7 +3,7 @@ const express = require("express");
 const Post = require("../Models/Post");
 const router = express.Router();
 
-const redis = require('redis');
+// const redis = require('redis');
 const { DEFAULT_ECDH_CURVE } = require("tls");
 
 
