@@ -20,4 +20,9 @@
 
 #We have used MongoDB Atlas which is a cloud-based database and it has been linked using the connection.js file under the Database folder
 
-This is to test CI
+
+docker build -t bored-1 .
+
+docker run -d -p 5000:3000 --name=bored-1 bored-1 npm run ec2 -- --host=0.0.0.0
+
+efeqof9qe
