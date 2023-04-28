@@ -30,9 +30,29 @@ router.post("/search", async (req, res) => {
 
     console.log(req.body.search_string);
 
-    Post.createIndex()
+    // Post.createIndex()
 
-    const posts = await Post.find({});
+    let reqPosts = [];
+
+    const posts = await Post.find({}, (err, docs) => {
+
+        if (docs!=null){
+
+            
+
+            for (let i=0; i<docs.length; i++){
+
+                cont = docs[i].postContent;
+
+                if (cont.search(req.body.search_string)!=-1){
+
+                    reqPosts.push(docs[i]);
+                }
+            }
+
+            // res.render("search", {posts: reqPosts, user: req.session.loggeduser})
+        }
+    }).clone().catch(function(err){ console.log(err)});
 
     // await Post.find({$or: [{postCategory: req.body.category}, {newcategoryname: req.body.category}]}, (err, docs) => {
     //     // await Post.find({newcategoryname: "Movies"}, {}, (err, docs) => {
@@ -48,7 +68,7 @@ router.post("/search", async (req, res) => {
 
     // console.log("in post");
 
-    res.render("search", {posts: [], user: req.session.loggeduser})
+    res.render("search", {posts: reqPosts, user: req.session.loggeduser})
 
 });
 
